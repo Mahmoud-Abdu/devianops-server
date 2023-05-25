@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Quest, validate } = require("../models/quest");
-const isIn = require("../middleware/test");
+
+
 router.get("/", async (req, res) => {
   const quests = await Quest.find().populate("enemyNames", "-_id").exec();
   console.log("ses", quests);
@@ -9,8 +10,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const quest = await Quest.findOne({_id:req.params.id}).select("-_id -__v");
-   if (!quest) return res.status(404).send("quest not found!");
+  const quest = await Quest.findOne({ _id: req.params.id }).select("-_id -__v");
+  if (!quest) return res.status(404).send("quest not found!");
   res.send(quest);
 });
 
